@@ -1,0 +1,82 @@
+.navbar{
+    min-height: 100px !important;
+    background: #317256 !important;
+}
+
+.jumbotron{
+    background: #52bf90;
+}
+
+.navbar-brand{
+    font-size: 1.5rem;
+}
+
+#about{
+    font-size: 1.2rem;
+}
+
+#consequences {
+    font-size: 1.2rem;
+    background: #52bf90;
+}
+
+#sources {
+    font-size: 1.2rem;
+    background: #52bf90;
+}
+
+.nav-item{
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+.nav-item:hover{
+    background: #52bf90 !important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.nav-item:hover .nav-link{
+    color: #317256 !important;
+}
+
+.countdown-item h2{
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+}
+
+.countdown-item div{
+    background: #419873;
+    font-size: 3rem !important;
+    font-weight: bold;
+}
+
+.circle {
+    position:relative;
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    max-height: 400px;
+    background: #419873;
+    -moz-border-radius: 200px;
+    -webkit-border-radius: 200px;
+    border-radius: 200px;
+}
+
+.circle img{
+    width: 100%;
+    max-width: 350px;
+    max-height: 350px;
+    position:absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    margin: auto
+}
+
+#tree-color{
+    clip: rect(100px, 300px, 300px,100px);
+}
+
+.image-grey {
+    -webkit-filter: grayscale(100%);
+}
