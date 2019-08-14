@@ -1,56 +1,116 @@
-.navbar{
+/****************************************************************************
+* COLOR REFERENCE
+*
+* Green: #14AA37
+* Black: #000000
+* White: #FFFFFF
+* Lemon: #F7EE6A
+* Light Blue: #75D0F1
+* Pink: #ED9BC4
+* Purple: #986297
+* Light Green: #BED276
+* Warm Yellow: #FFC11E
+* Bright Pink: #CF6297
+* Red: #DC4F00
+* Dark Blue: #3860AA
+* Angry: #C80082
+*
+****************************************************************************/
+
+/* === FONTS === */
+
+@font-face {
+    font-family: 'Fucxed';
+    src: url('../fonts/Fucxed/fucxedcaps-v2-webfont.woff2') format('woff2'),
+         url('../fonts/Fucxed/fucxedcaps-v2-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Crimson Text';
+    src: url('../fonts/Crimson-Text/crimson-text-v10-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local('Crimson Text Regular'), local('CrimsonText-Regular'),
+            url('../fonts/Crimson-Text/crimson-text-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('../fonts/Crimson-Text/crimson-text-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+            url('../fonts/Crimson-Text/crimson-text-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
+            url('../fonts/Crimson-Text/crimson-text-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+            url('../fonts/Crimson-Text/crimson-text-v10-latin-regular.svg#CrimsonText') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+/* === BOOTSTRAP COLORS === */
+
+.bg-primary {
+    background-color: #14AA37 !important;
+}
+
+
+/* === GENERAL DEFINITIONS === */
+
+body {
+    font-family: 'Crimson Text';
+    font-size: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6, .shout {
+    font-family: Fucxed;
+}
+
+
+/* === NAVIGATION === */
+
+.navbar {
     min-height: 100px !important;
-    background: #317256 !important;
+    /*background: #14AA37 !important;*/
+
+    font-family: Fucxed;
 }
 
-.jumbotron{
-    background: #52bf90;
-}
-
-.navbar-brand{
+.navbar-brand {
     font-size: 1.5rem;
 }
 
-#about{
-    font-size: 1.2rem;
-}
-
-#consequences {
-    font-size: 1.2rem;
-    background: #52bf90;
-}
-
-#sources {
-    font-size: 1.2rem;
-    background: #52bf90;
-}
-
-.nav-item{
+.nav-item,
+.navbar-light .navbar-nav .nav-link {
     padding: 10px;
-    font-size: 1.5rem;
+    color: #000000;
 }
 
-.nav-item:hover{
-    background: #52bf90 !important;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+.nav-item:hover 
+.nav-link {
+    background: #FFC11E;
+    color: #000000 !important;
 }
 
-.nav-item:hover .nav-link{
-    color: #317256 !important;
-}
 
-.countdown-item h2{
+/* === COUNTDOWN === */
+
+.countdown-item h2 {
     font-size: 1.5rem !important;
     font-weight: bold !important;
 }
 
-.countdown-item div{
-    background: #419873;
+.countdown-item div {
+    background: #FFFFFF;
+
     font-size: 3rem !important;
     font-weight: bold;
+
+    color: #000000;
 }
+
+
+/* === THE COUNTDOWN === */
+
+.jumbotron {
+    background: #FFFFFF;
+}
+
+
+/* === THE CIRCLE === */
 
 .circle {
     position:relative;
@@ -58,13 +118,13 @@
     max-width: 400px;
     height: 400px;
     max-height: 400px;
-    background: #419873;
+    background: #14AA37;
     -moz-border-radius: 200px;
     -webkit-border-radius: 200px;
     border-radius: 200px;
 }
 
-.circle img{
+.circle img {
     width: 100%;
     max-width: 350px;
     max-height: 350px;
@@ -73,8 +133,8 @@
     margin: auto
 }
 
-#tree-color{
-    clip: rect(100px, 300px, 300px,100px);
+#tree-color {
+    clip: rect(100px, 300px, 300px, 100px);
 }
 
 .image-grey {
