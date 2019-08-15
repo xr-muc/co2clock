@@ -59,6 +59,11 @@ h1, h2, h3, h4, h5, h6, .shout {
     font-family: Fucxed;
 }
 
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+
 
 /* === NAVIGATION === */
 
@@ -71,18 +76,21 @@ h1, h2, h3, h4, h5, h6, .shout {
 
 .navbar-brand {
     font-size: 1.5rem;
+    text-decoration: none;
 }
 
 .nav-item,
 .navbar-light .navbar-nav .nav-link {
     padding: 10px;
     color: #000000;
+    text-decoration: none;
 }
 
 .nav-item:hover 
 .nav-link {
     background: #FFC11E;
     color: #000000 !important;
+    text-decoration: none;
 }
 
 
@@ -133,10 +141,10 @@ h1, h2, h3, h4, h5, h6, .shout {
     margin: auto
 }
 
-#tree-color {
-    clip: rect(100px, 300px, 300px, 100px);
+#xr-gray {
+    fill: #E6E6E6;
 }
 
-.image-grey {
-    -webkit-filter: grayscale(100%);
+#xr-black {
+    fill: #000000;
 }
