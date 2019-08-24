@@ -156,7 +156,9 @@ a {
     background: #14AA37;
 }
 
-.circle img {    
+.circle img {
+	width: 90%;
+	height: 90%;
 	max-height: 100%;
 	margin: 5% 5% 5% 5%;
 }
@@ -168,8 +170,8 @@ a {
 #xr-black {    
 	z-index: 1;
 	
-    /*position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;*/
+    position: absolute;
+    top: 0; left: 0;
 }
 
 

@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
 
-    <meta name="description" content="co2clock.info shows the time left until the worldwide CO2 budget, that we can use until we will miss the 1.5°C global warming goals, is depleted. ">
+    <meta name="description" content="countdown.xr-muc.de shows the time remaining until the CO2 budget is depleted for at most 1.5°C of global warming">
     <meta name="keywords" content="co2, co2 budget, co2 clock, ipcc report, co2 left, emissions, co2 emissions, co2 emissions clock, extinction rebellion, xr">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="row pt-5">
-						<div class="col-lg-6">
+						<div class="col-md-6">
 							<div class="row">
 				                <div class="col-sm-4 countdown-item">
 				                    <h2>YEARS</h2>
@@ -80,7 +80,7 @@
 				                </div>
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-md-6">
 							<div class="row">
 				                <div class="col-sm-4 countdown-item">
 				                    <h2>HOURS</h2>
@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="circle mx-auto">
-                        <!--<img id="xr-gray" src="img/XR-Logo-notext-gray.svg" alt="Extinction Rebellion logo in gray">-->
+                        <img id="xr-gray" src="img/XR-Logo-notext-gray.svg" alt="Extinction Rebellion logo in gray">
                         <img id="xr-black" src="img/XR-Logo-notext.svg" alt="Extinction Rebellion logo in black">
                     </div>
 
@@ -318,11 +318,11 @@
         }
 
         function resize(){
-            //treeColor = document.getElementById("xr-black");
-            //width = treeColor.offsetWidth;
-            //height = treeColor.offsetHeight;
-            //startY = height - (height * percentageBudgetLeft/100);
-            //treeColor.style.clip = "rect("+startY+"px, "+width+"px, "+height+"px, 0px)";
+            treeColor = document.getElementById("xr-black");
+            width = treeColor.offsetWidth;
+            height = treeColor.offsetHeight;
+            startY = height - (height * percentageBudgetLeft/100);
+            treeColor.style.clip = "rect("+startY+"px, "+width+"px, "+height+"px, 0px)";
         }
 
         updateCountdown();
