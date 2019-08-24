@@ -58,42 +58,50 @@
                     </div>
 
                     <div class="row pt-5">
-                        <div class="col-md countdown-item">
-                            <h2>YEARS</h2>
-                            <div id="cd-years">
-                                00
-                            </div>
-                        </div>
-                        <div class="col-md countdown-item">
-                            <h2>MONTHS</h2>
-                            <div id="cd-months">
-                                00
-                            </div>
-                        </div>
-                        <div class="col-md countdown-item">
-                            <h2>DAYS</h2>
-                            <div id="cd-days">
-                                00
-                            </div>
-                        </div>
-                        <div class="col-md countdown-item">
-                            <h2>HOURS</h2>
-                            <div id="cd-hours">
-                                00
-                            </div>
-                        </div>
-                        <div class="col-md countdown-item">
-                            <h2>MINUTES</h2>
-                            <div id="cd-minutes">
-                                00
-                            </div>
-                        </div>
-                        <div class="col-md countdown-item">
-                            <h2>SECONDS</h2>
-                            <div id="cd-seconds">
-                                00
-                            </div>
-                        </div>
+						<div class="col-lg-6">
+							<div class="row">
+				                <div class="col-sm-4 countdown-item">
+				                    <h2>YEARS</h2>
+				                    <div id="cd-years">
+				                        00
+				                    </div>
+				                </div>
+				                <div class="col-sm-4 countdown-item">
+				                    <h2>MONTHS</h2>
+				                    <div id="cd-months">
+				                        00
+				                    </div>
+				                </div>
+				                <div class="col-sm-4 countdown-item">
+				                    <h2>DAYS</h2>
+				                    <div id="cd-days">
+				                        00
+				                    </div>
+				                </div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="row">
+				                <div class="col-sm-4 countdown-item">
+				                    <h2>HOURS</h2>
+				                    <div id="cd-hours">
+				                        00
+				                    </div>
+				                </div>
+				                <div class="col-sm-4 countdown-item">
+				                    <h2>MINUTES</h2>
+				                    <div id="cd-minutes">
+				                        00
+				                    </div>
+				                </div>
+				                <div class="col-sm-4 countdown-item">
+				                    <h2>SECONDS</h2>
+				                    <div id="cd-seconds">
+				                        00
+				                    </div>
+				                </div>
+							</div>
+						</div>
                     </div>
 
                     <div id="emissions-per-seconds-container" class="justify-content-center row text-center pt-5 pb-3">
@@ -102,8 +110,8 @@
                         </div>
                     </div>
 
-                    <div class="row circle mx-auto">
-                        <img id="xr-gray" src="img/XR-Logo-notext-gray.svg" alt="Extinction Rebellion logo in gray">
+                    <div class="circle mx-auto">
+                        <!--<img id="xr-gray" src="img/XR-Logo-notext-gray.svg" alt="Extinction Rebellion logo in gray">-->
                         <img id="xr-black" src="img/XR-Logo-notext.svg" alt="Extinction Rebellion logo in black">
                     </div>
 
@@ -179,33 +187,35 @@
 
         <div id="what-can-i-do" class="pt-5 pb-5 bg-primary">
             <div class="container">
-                <h1 class="font-weight-bold">WHAT CAN I DO?</h1>
-                <p>
-                    <a href="https://rebellion.earth/">Extinction Rebellion</a> is an international movement that uses non-violent civil disobedience in an attempt 
-                    to halt mass extinction and minimise the risk of social collapse.
-                </p>
-                <p class="font-weight-bold">
-                    <a href="https://rebellion.earth/act-now/join-us/">JOIN US.</a>
-                </p>
+		        <h1 class="font-weight-bold">WHAT CAN I DO?</h1>
+			    <p>
+			        <a href="https://rebellion.earth/">Extinction Rebellion</a> is an international movement that uses non-violent civil disobedience in an attempt 
+			        to halt mass extinction and minimise the risk of social collapse.
+			    </p>
+				<p class="font-weight-bold">
+			        <a href="https://rebellion.earth/act-now/join-us/">JOIN US.</a>
+			    </p>
             </div>
         </div>
 
         <div id="countries" class="pt-5 pb-5">
             <div class="container">
                 <h1 class="font-weight-bold pb-3">EMISSION BUDGETS PER COUNTRY</h1>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Country</th>
-                        <th scope="col">Total Budget [tons]</th>
-                        <th scope="col">% of World Budget</th>
-                        <th scope="col">Budget Left [tons]</th>
-                    </tr>
-                    </thead>
-                    <tbody id="country-table-body">
-                        <!-- filled by the script -->
-                    </tbody>
-                </table>
+				<div class="table-responsive">
+		            <table class="table">
+		                <thead>
+						    <tr>
+						        <th scope="col">Country</th>
+						        <th scope="col">Total Budget [tons]</th>
+						        <th scope="col">% of World Budget</th>
+						        <th scope="col">Budget Left [tons]</th>
+						    </tr>
+		                </thead>
+		                <tbody id="country-table-body">
+		                    <!-- filled by the script -->
+		                </tbody>
+		            </table>
+				</div>
             </div>
         </div>
 
@@ -308,11 +318,11 @@
         }
 
         function resize(){
-            treeColor = document.getElementById("xr-black");
-            width = treeColor.offsetWidth;
-            height = treeColor.offsetHeight;
-            startY = height - (height * percentageBudgetLeft/100);
-            treeColor.style.clip = "rect("+startY+"px, "+width+"px, "+height+"px, 0px)";
+            //treeColor = document.getElementById("xr-black");
+            //width = treeColor.offsetWidth;
+            //height = treeColor.offsetHeight;
+            //startY = height - (height * percentageBudgetLeft/100);
+            //treeColor.style.clip = "rect("+startY+"px, "+width+"px, "+height+"px, 0px)";
         }
 
         updateCountdown();

@@ -120,16 +120,16 @@ a {
 
 /* === THE CIRCLE === */
 
-.circle {
+/*.circle {
+	display: inline-block;
     position:relative;
     width: 100%;
     max-width: 400px;
-    height: 400px;
     max-height: 400px;
     background: #14AA37;
-    -moz-border-radius: 200px;
-    -webkit-border-radius: 200px;
-    border-radius: 200px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .circle img {
@@ -138,13 +138,43 @@ a {
     max-height: 350px;
     position:absolute;
     top: 0; left: 0; bottom: 0; right: 0;
-    margin: auto
+    margin: auto;
+}*/
+
+.circle {
+	display: inline-block;
+	position: relative;
+	
+	border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+	
+	height: 100%;
+	width: 100%;
+	max-width: 400px;
+	
+    background: #14AA37;
+}
+
+.circle img {    
+	max-height: 100%;
+	margin: 5% 5% 5% 5%;
 }
 
 #xr-gray {
-    fill: #E6E6E6;
+	z-index: 0;
 }
 
-#xr-black {
-    fill: #000000;
+#xr-black {    
+	z-index: 1;
+	
+    /*position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;*/
+}
+
+
+/* === THE INFO BLOCKS === */
+
+#what-can-i-do img {
+	max-width: 150px;
 }
