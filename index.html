@@ -17,10 +17,9 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onresize="resize()">
-
+<body onresize="resizeMeter()">
     <div class="container-fluid p-0">
-
+        <!-- NAVIGATION MENU -->
         <nav class="navbar navbar-expand-lg navbar-light bg-primary">
             <a class="navbar-brand" href="#">CO<sub>2</sub> COUNTDOWN</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,12 +42,17 @@
                         <a class="nav-link" href="#bugets">Budget per Country</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#sources">Sources</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="https://extinctionrebellion.de/">XR Germany</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <!-- END NAVIGATION MENU -->
 
+        <!-- COUNTDOWN -->
         <div class="jumbotron jumbotron-fluid shout">
             <div class="container">
                 <div class="justify-content-center text-center">
@@ -136,7 +140,8 @@
                 </div>
             </div>
         </div>
-        <a name="about">
+        <!-- END COUNTDOWN -->
+
         <div id="about" class="pt-5 pb-5 bg-primary">
             <div class="container">
                 <h1 class="font-weight-bold">ABOUT</h1>
@@ -160,8 +165,7 @@
 				</p>
             </div>
         </div>
-        </a>
-        <a name="consequences">
+        
         <div id="consequences" class="pt-5 pb-5">
             <div class="container">
                 <h1 class="font-weight-bold">WHAT IF WE MISS THE GOAL?</h1>
@@ -185,9 +189,8 @@
                 </p>
             </div>
         </div>
-        </a>
-        <a name="help">
-        <div id="what-can-i-do" class="pt-5 pb-5 bg-primary">
+        
+        <div id="help" class="pt-5 pb-5 bg-primary">
             <div class="container">
 		        <h1 class="font-weight-bold">WHAT CAN I DO?</h1>
 			    <p>
@@ -199,9 +202,8 @@
 			    </p>
             </div>
         </div>
-        </a>
-        <a name="bugets">
-        <div id="countries" class="pt-5 pb-5">
+        
+        <div id="bugets" class="pt-5 pb-5">
             <div class="container">
                 <h1 class="font-weight-bold pb-3">EMISSION BUDGETS PER COUNTRY</h1>
 				<div class="table-responsive">
@@ -221,7 +223,6 @@
 				</div>
             </div>
         </div>
-        </a>
 
         <div id="sources" class="pt-5 pb-5 bg-primary">
             <div class="container">
@@ -239,11 +240,10 @@
 
     <script src="libs/jquery-3.4.1/jquery.min.js"></script>
     <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-    <script src="js/moment.js"></script>
+    <script src="libs/momentjs-2.24.0/moment.min.js"></script>
     <script src="js/emission_data.js"></script>
 
     <script>
-
         var cdYears = document.getElementById("cd-years");
         var cdMonths = document.getElementById("cd-months");
         var cdDays = document.getElementById("cd-days");
@@ -254,46 +254,61 @@
         var spanBudgetLeft = document.getElementById("budget-left");
         var spanEmissionsPerSecond = document.getElementById("emissions-per-seconds");
 
-
         var start = moment("2018-01-01");
         var percentageBudgetLeft = 0;
 
-        function numberFormater(numberToFormat) {
-            return numberToFormat.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        /**
+         * Format a number to string format, with commas to separate groups of thousands.
+         */
+        function numberFormatter(numberToFormat) {
+            return numberToFormat.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         }
 
+        /**
+         * Update countries measures every second.
+         */
         function updateCountries(){
-
-            var now = moment(new Date());
+            var now = moment();
             var elapsed = moment.duration(now.diff(start)).asSeconds();
 
             $("#country-table-body").html("");
 
-            for(var country in emissions){
-
-
+            for (var country in emissions) {
                 // calculate time left
-                var countryBudgetTotal = Math.round(emissions[country]["emission_budget_15"]);
-                var countryBudgetLeft =  Math.round(countryBudgetTotal - (elapsed * emissions[country]["emission_per_second"]));
-                var countryPercentageBudgetLeft = Math.round((countryBudgetTotal/emissions["world"]["emission_budget_15"]) * 10000)/100;
+                if (!Number.isNaN(emissions[country]["emission_budget_15"])) {
+                    var countryBudgetTotal = Math.round(emissions[country]["emission_budget_15"]);
+                    var countryBudgetLeft = Math.round(countryBudgetTotal - (elapsed * emissions[country]["emission_per_second"]));
+                    var countryPercentageBudgetLeft = Math.round((countryBudgetTotal / emissions["world"]["emission_budget_15"]) * 10000) / 100;
+                } else {
+                    countryBudgetTotal = countryBudgetLeft = countryPercentageBudgetLeft = 0;
+                }
 
                 // create table row
-                $("#country-table-body").append("<tr><td>"+country+"</td><td>"+numberFormater(countryBudgetTotal)+"</td><td>"+countryPercentageBudgetLeft+"%</td><td>"+numberFormater(countryBudgetLeft)+"</td></tr>");
+                $("#country-table-body").append(
+                    "<tr>" +
+                        "<td>" + country + "</td>" +
+                        "<td>" + numberFormatter(countryBudgetTotal) + "</td>" +
+                        "<td>" + countryPercentageBudgetLeft + "%</td>" +
+                        "<td>" + numberFormatter(countryBudgetLeft) + "</td>" +
+                    "</tr>"
+                );
             }
 
             setTimeout(updateCountries, 1000);
         }
 
+        /**
+         * Update countdown at the top of the page every second.
+         */
         function updateCountdown(){
-            var now = moment(new Date());
+            var now = moment();
             var elapsed = moment.duration(now.diff(start)).asSeconds();
 
             // calculate global timer
             var worldBudgetTotal = emissions["world"]["emission_budget_15"];
             var worldBudgetLeft = worldBudgetTotal - (elapsed * emissions["world"]["emission_per_second"]);
             var totalSecondsLeft = worldBudgetLeft/emissions["world"]["emission_per_second"];
-            percentageBudgetLeft = Math.round((worldBudgetLeft/worldBudgetTotal) * 10000)/100;
-
+            percentageBudgetLeft = Math.round((worldBudgetLeft/worldBudgetTotal) * 10000) / 100;
 
             var years = Math.floor(totalSecondsLeft / 31536000);
             totalSecondsLeft %= 31536000;
@@ -315,24 +330,28 @@
             cdSeconds.innerHTML = ('0' + totalSecondsLeft).slice(-2);
 
             spanPercentageLeft.innerHTML = percentageBudgetLeft;
-            spanBudgetLeft.innerHTML = numberFormater(Math.floor(worldBudgetLeft));
-            spanEmissionsPerSecond.innerHTML = numberFormater(Math.round(emissions["world"]["emission_per_second"]));
+            spanBudgetLeft.innerHTML = numberFormatter(Math.floor(worldBudgetLeft));
+            spanEmissionsPerSecond.innerHTML = numberFormatter(Math.round(emissions["world"]["emission_per_second"]));
 
             setTimeout(updateCountdown, 1000);
         }
 
-        function resize(){
+        /**
+         * Resize the black rectangle behind the logo to illustrate percentage of budget left.
+         */
+        function resizeMeter(){
             treeColor = document.getElementById("xr-black");
             width = treeColor.offsetWidth;
             height = treeColor.offsetHeight;
-            startY = height - (height * percentageBudgetLeft/100);
-            treeColor.style.clip = "rect("+startY+"px, "+width+"px, "+height+"px, 0px)";
+            startY = Math.round(height - (height * percentageBudgetLeft / 100));
+
+            treeColor.style.clip = "rect(" + startY + "px, " + width + "px, " + height + "px, 0px)";
         }
 
+        // Start up everything
         updateCountdown();
-        resize();
+        resizeMeter();
         updateCountries();
-
     </script>
 </body>
 </html>

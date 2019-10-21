@@ -1325,4 +1325,4 @@ var emissions = {
         "emission_percentage_of_total": 100.0,
         "emission_budget_15": 420000000000.0
     }
-}
+};
