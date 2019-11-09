@@ -21,34 +21,72 @@ function numberFormatter(numberToFormat) {
 /**
  * Update countries measures every second.
  */
-function updateCountries(){
+function updateCountries(emissionsData){
     var now = moment();
     var elapsed = moment.duration(now.diff(start)).asSeconds();
 
-    $("#country-table-body").html("");
+    var worldEmissions = emissionsData.find(function(entry) { return entry.name === 'World'});
 
-    for (var country in emissions) {
+    $("#country-table-body").html(
+      "<tr class='world-emissions-data'>" +
+          "<td>World</td>" +
+          "<td>" + numberFormatter(Math.round(worldEmissions["emission_budget_15"])) + "</td>" +
+          "<td>100%</td>" +
+          "<td>" + numberFormatter(Math.round(worldEmissions["emission_budget_15"] - (elapsed * worldEmissions["emission_per_second"]))) + "</td>" +
+      "</tr>"
+    );
+
+    for (var country of emissionsData) {
         // calculate time left
-        if (!Number.isNaN(emissions[country]["emission_budget_15"])) {
-            var countryBudgetTotal = Math.round(emissions[country]["emission_budget_15"]);
-            var countryBudgetLeft = Math.round(countryBudgetTotal - (elapsed * emissions[country]["emission_per_second"]));
-            var countryPercentageBudgetLeft = Math.round((countryBudgetTotal / emissions["world"]["emission_budget_15"]) * 10000) / 100;
+        if (!Number.isNaN(country["emission_budget_15"])) {
+            var countryBudgetTotal = Math.round(country["emission_budget_15"]);
+            var countryBudgetLeft = Math.round(countryBudgetTotal - (elapsed * country["emission_per_second"]));
+            var countryPercentageBudgetLeft = Math.round((countryBudgetTotal / worldEmissions["emission_budget_15"]) * 10000) / 100;
         } else {
             countryBudgetTotal = countryBudgetLeft = countryPercentageBudgetLeft = 0;
         }
 
+        
+
         // create table row
-        $("#country-table-body").append(
+        if(country.name !== 'World') {
+          $("#country-table-body").append(
             "<tr>" +
-                "<td>" + country + "</td>" +
+                "<td>" + country.name + "</td>" +
                 "<td>" + numberFormatter(countryBudgetTotal) + "</td>" +
                 "<td>" + countryPercentageBudgetLeft + "%</td>" +
                 "<td>" + numberFormatter(countryBudgetLeft) + "</td>" +
             "</tr>"
-        );
-    }
+          );
+        }
 
-    setTimeout(updateCountries, 1000);
+    }
+    setTimeout(function(){ updateCountries(emissionsData); }, 1000);
+}
+
+function sortByName(direction) {
+  return emissions.sort(function(curr, next) {
+    if(direction === 'desc') {
+      return next.name < curr.name ? 1 : -1;
+    }
+    return next.name > curr.name ? 1 : -1;
+  });
+}
+
+function sortByBudget(direction) {
+  return emissions.sort(function(curr, next) {
+    return direction === 'desc'
+      ? next['emission_budget_15'] - curr['emission_budget_15']
+      : curr['emission_budget_15'] - next['emission_budget_15'];
+  });
+}
+
+function orderCategory(categoryName, direction) {
+  var sortedEmissionsData = categoryName === 'name'
+    ? sortByName(direction)
+    : sortByBudget(direction);
+
+  updateCountries(sortedEmissionsData)
 }
 
 /**
@@ -57,11 +95,12 @@ function updateCountries(){
 function updateCountdown(){
     var now = moment();
     var elapsed = moment.duration(now.diff(start)).asSeconds();
+    var worldEmissions = emissions.find(function(entry) { return entry.name === 'World'});
 
     // calculate global timer
-    var worldBudgetTotal = emissions["world"]["emission_budget_15"];
-    var worldBudgetLeft = worldBudgetTotal - (elapsed * emissions["world"]["emission_per_second"]);
-    var totalSecondsLeft = worldBudgetLeft/emissions["world"]["emission_per_second"];
+    var worldBudgetTotal = worldEmissions["emission_budget_15"];
+    var worldBudgetLeft = worldBudgetTotal - (elapsed * worldEmissions["emission_per_second"]);
+    var totalSecondsLeft = worldBudgetLeft/worldEmissions["emission_per_second"];
     percentageBudgetLeft = Math.round((worldBudgetLeft/worldBudgetTotal) * 10000) / 100;
 
     var years = Math.floor(totalSecondsLeft / 31536000);
@@ -85,7 +124,7 @@ function updateCountdown(){
 
     spanPercentageLeft.innerHTML = percentageBudgetLeft;
     spanBudgetLeft.innerHTML = numberFormatter(Math.floor(worldBudgetLeft));
-    spanEmissionsPerSecond.innerHTML = numberFormatter(Math.round(emissions["world"]["emission_per_second"]));
+    spanEmissionsPerSecond.innerHTML = numberFormatter(Math.round(worldEmissions["emission_per_second"]));
 
     setTimeout(updateCountdown, 1000);
 }
@@ -105,4 +144,4 @@ function resizeMeter(){
 // Start up everything
 updateCountdown();
 resizeMeter();
-updateCountries();
+updateCountries(emissions);

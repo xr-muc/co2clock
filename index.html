@@ -209,12 +209,44 @@
 				<div class="table-responsive">
 		            <table class="table">
 		                <thead>
-						    <tr>
-						        <th scope="col">Country</th>
-						        <th scope="col">Total Budget [tons]</th>
-						        <th scope="col">% of World Budget</th>
-						        <th scope="col">Budget Left [tons]</th>
-						    </tr>
+                      <tr>
+                          <th scope="col" class="category-name-container">
+                            <div class="category-container">
+                                <span class="category-name">Country</span>
+                                <div class="chevron-container">
+                                    <span id="total-budget-desc" class="chevron" onclick="orderCategory('name', 'desc')">&#9660;</span>
+                                    <span id="total-budget-asc" class="chevron" onclick="orderCategory('name', 'asc')">&#9650;</span>
+                                </div>
+                            </div>
+                          </th>
+                          <th scope="col" class="category-name-container">
+                            <div class="category-container">
+                                <span class="category-name">Total Budget [tons]</span>
+                                <div class="chevron-container">
+                                    <span id="total-budget-desc" class="chevron" onclick="orderCategory('budget', 'desc')">&#9660;</span>
+                                    <span id="total-budget-asc" class="chevron" onclick="orderCategory('budget', 'asc')">&#9650;</span>
+                                </div>
+                            </div>
+                          </th>
+                          <th scope="col" class="category-name-container">
+                            <div class="category-container">
+                                <span class="category-name">% of World Budget</span>
+                                <div class="chevron-container">
+                                    <span id="total-budget-desc" class="chevron" onclick="orderCategory('budget', 'desc')">&#9660;</span>
+                                    <span id="total-budget-asc" class="chevron" onclick="orderCategory('budget', 'asc')">&#9650;</span>
+                                </div>
+                            </div>
+                          </th>
+                          <th scope="col" class="category-name-container">
+                            <div class="category-container">
+                                <span class="category-name">Budget Left [tons]</span>
+                                <div class="chevron-container">
+                                    <span id="total-budget-desc" class="chevron" onclick="orderCategory('budget', 'desc')">&#9660;</span>
+                                    <span id="total-budget-asc" class="chevron" onclick="orderCategory('budget', 'asc')">&#9650;</span>
+                                </div>
+                            </div>
+                          </th>
+                      </tr>
 		                </thead>
 		                <tbody id="country-table-body">
 		                    <!-- filled by the script -->
@@ -243,6 +275,5 @@
     <script src="libs/momentjs-2.24.0/moment.min.js"></script>
     <script src="js/emission_data.js"></script>
     <script src="js/main.js"></script>
-
 </body>
 </html>
