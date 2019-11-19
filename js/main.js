@@ -10,6 +10,9 @@ var spanEmissionsPerSecond = document.getElementById("emissions-per-seconds");
 
 var start = moment("2018-01-01");
 var percentageBudgetLeft = 0;
+let timeoutId;
+let emissionsRawData = emissions;
+let orderedEmissionsData = emissionsRawData;
 
 /**
  * Format a number to string format, with commas to separate groups of thousands.
@@ -21,11 +24,12 @@ function numberFormatter(numberToFormat) {
 /**
  * Update countries measures every second.
  */
-function updateCountries(emissionsData){
+function updateCountries(){
+    clearTimeout(timeoutId);
     var now = moment();
     var elapsed = moment.duration(now.diff(start)).asSeconds();
 
-    var worldEmissions = emissionsData.find(function(entry) { return entry.name === 'World'});
+    var worldEmissions = orderedEmissionsData.find(function(entry) { return entry.name === 'World'});
 
     $("#country-table-body").html(
       "<tr class='world-emissions-data'>" +
@@ -36,7 +40,7 @@ function updateCountries(emissionsData){
       "</tr>"
     );
 
-    for (var country of emissionsData) {
+    for (var country of orderedEmissionsData) {
         // calculate time left
         if (!Number.isNaN(country["emission_budget_15"])) {
             var countryBudgetTotal = Math.round(country["emission_budget_15"]);
@@ -61,11 +65,11 @@ function updateCountries(emissionsData){
         }
 
     }
-    setTimeout(function(){ updateCountries(emissionsData); }, 1000);
+    timeoutId = setTimeout(function(){ updateCountries(); }, 1000);
 }
 
 function sortByName(direction) {
-  return emissions.sort(function(curr, next) {
+  orderedEmissionsData = orderedEmissionsData.sort(function(curr, next) {
     if(direction === 'desc') {
       return next.name < curr.name ? 1 : -1;
     }
@@ -74,7 +78,7 @@ function sortByName(direction) {
 }
 
 function sortByBudget(direction) {
-  return emissions.sort(function(curr, next) {
+  orderedEmissionsData = orderedEmissionsData.sort(function(curr, next) {
     return direction === 'desc'
       ? next['emission_budget_15'] - curr['emission_budget_15']
       : curr['emission_budget_15'] - next['emission_budget_15'];
@@ -86,7 +90,25 @@ function orderCategory(categoryName, direction) {
     ? sortByName(direction)
     : sortByBudget(direction);
 
-  updateCountries(sortedEmissionsData)
+  updateCountries();
+}
+
+function filterCountryData(inputText) {
+  if (inputText) {
+    const searchString = inputText.toLowerCase();
+    const worldData = orderedEmissionsData.find(entry => entry.name.toLowerCase() === 'world');
+    filteredEmissionsData = emissionsRawData.filter(entry => entry && entry.name.toLowerCase().includes(searchString));
+    orderedEmissionsData = [worldData, ...filteredEmissionsData];
+  } else {
+    orderedEmissionsData = emissionsRawData;
+  }
+
+  updateCountries();
+}
+
+function clearCountryFilter() {
+  document.getElementById('country-filter-input').value = '';
+  filterCountryData();
 }
 
 /**
@@ -95,7 +117,7 @@ function orderCategory(categoryName, direction) {
 function updateCountdown(){
     var now = moment();
     var elapsed = moment.duration(now.diff(start)).asSeconds();
-    var worldEmissions = emissions.find(function(entry) { return entry.name === 'World'});
+    var worldEmissions = orderedEmissionsData.find(function(entry) { return entry.name === 'World'});
 
     // calculate global timer
     var worldBudgetTotal = worldEmissions["emission_budget_15"];
@@ -144,4 +166,4 @@ function resizeMeter(){
 // Start up everything
 updateCountdown();
 resizeMeter();
-updateCountries(emissions);
+updateCountries();

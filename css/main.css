@@ -199,4 +199,19 @@ a {
   font-size: 1rem;
 }
 
+.clear-button {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.country-filter {
+  display: flex;
+}
+
+.country-filter input{
+  padding-right: 0;
+  border-right: 0;
+}
+
 /* === THE INFO BLOCKS === */
